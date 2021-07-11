@@ -1,13 +1,29 @@
-.home{
-    /* display: flex; */
-    align-items: center;
-    flex-direction: column;
+.home {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.div_header{
+.div_Home_Content {
+  display: flex;
+  /* align-items: center; */
+  flex-direction: row;
+}
+
+.div_header {
   padding-bottom: 5em;
 }
 
-.div_patient_reg_form{
+.div_patient_reg_form {
+  /* padding-top: 5em; */
   padding-bottom: 5em;
+  padding-right: 5em;
+  padding-left: 5em;
+}
+
+.div_userLogin_form {
+  /* padding-top: 5em; */
+  padding-bottom: 5em;
+  padding-right: 5em;
+  padding-left: 5em;
 }

@@ -64,6 +64,7 @@ export default function PatientRegForm() {
         <input
           className={forminput}
           required
+          placeholder="First Name"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -73,6 +74,7 @@ export default function PatientRegForm() {
         <input
           className={forminput}
           required
+          placeholder="Last Name"
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
@@ -96,6 +98,7 @@ export default function PatientRegForm() {
         <label className={regLabel}>Location X: </label>
         <input
           className={forminput}
+          placeholder="0"
           required
           type="number"
           pattern="[0-9]"
@@ -106,6 +109,7 @@ export default function PatientRegForm() {
         <label className={regLabel}>Location Y: </label>
         <input
           className={forminput}
+          placeholder="0"
           required
           type="number"
           pattern="[0-9]"
