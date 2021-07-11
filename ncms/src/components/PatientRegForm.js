@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
   },
   forminput: {
     width: "400px",
+    height: "35px",
     paddingTop: "6px",
     marginTop: "10px",
     marginBottom: "10px",

@@ -4,7 +4,7 @@ import { useState } from "react";
 const useStyles = makeStyles(() => ({
   patientRegForm: {
     maxWidth: "300px",
-    // margin: "10",
+    margin: "10",
     textAlign: "center",
   },
   regLabel: {
@@ -17,7 +17,8 @@ const useStyles = makeStyles(() => ({
     marginBottom: "30px",
   },
   forminput: {
-    width: "300px",
+    width: "400px",
+    height: "35px",
     paddingTop: "6px",
     marginTop: "10px",
     marginBottom: "10px",
@@ -35,6 +36,7 @@ const useStyles = makeStyles(() => ({
     border: "0",
     padding: "8px",
     borderRadius: "8px",
+    marginTop: "10px",
   },
 }));
 
