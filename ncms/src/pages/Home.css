@@ -1,0 +1,13 @@
+.home{
+    /* display: flex; */
+    align-items: center;
+    flex-direction: column;
+}
+
+.div_header{
+  padding-bottom: 5em;
+}
+
+.div_patient_reg_form{
+  padding-bottom: 5em;
+}
