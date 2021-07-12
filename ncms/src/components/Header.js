@@ -105,6 +105,9 @@ export default function Header() {
     console.log(lable.label);
     if (lable.label === "Logout") {
       localStorage.setItem("LoggedIn", false);
+      localStorage.setItem("token", "");
+      localStorage.setItem("role", "");
+      localStorage.setItem("username", "");
     }
   };
 
