@@ -4,6 +4,7 @@ import Hospitals from "./pages/Hospitals";
 import PatientAdmission from "./pages/PatientAdmission";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Stats from "./pages/Stats";
 
 
 const Routes = () => {
@@ -11,9 +12,11 @@ const Routes = () => {
     <BrowserRouter basename="ncms">
       <Switch>
         <Route path="/" exact component={App} />
+        <Route path="/login" exact component={Login} />
         <Route path="/hospitals" exact component={Hospitals} />
         <Route path="/patientadmission" exact component={PatientAdmission} />
-        <Route path="/login" exact component={Login} />
+        <Route path="/stats" exact component={Stats} />
+        
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

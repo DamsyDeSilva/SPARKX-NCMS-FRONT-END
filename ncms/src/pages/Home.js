@@ -1,6 +1,7 @@
 import "./pageStyles.css";
 import Header from "../components/Header";
 import PatientRegForm from "../components/PatientRegForm";
+// import StatComponent from "../components/StatComponent";
 
 const Home = () =>  {
   return (
@@ -11,7 +12,7 @@ const Home = () =>  {
 
       <div className="div_Home_Content">
         {/* <div className="div_stats">
-          
+          <StatComponent/>
         </div> */}
 
         <div className="div_patient_reg_form">

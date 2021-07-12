@@ -14,6 +14,10 @@ const headersNotLoggedIn = [
     href: "/",
   },
   {
+    label: "Statistics",
+    href: "/stats",
+  },
+  {
     label: "Login",
     href: "/login",
   },
@@ -23,6 +27,10 @@ const headersDoctorLoggedIn = [
   {
     label: "Home",
     href: "/",
+  },
+  {
+    label: "Statistics",
+    href: "/stats",
   },
   {
     label: "PatientAdmissions",
@@ -46,6 +54,10 @@ const headersMOHLoggedIn = [
   {
     label: "Home",
     href: "/",
+  },
+  {
+    label: "Statistics",
+    href: "/stats",
   },
   {
     label: "Moh Dashboard",
