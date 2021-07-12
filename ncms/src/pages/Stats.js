@@ -2,6 +2,7 @@ import "./pageStyles.css";
 import Header from "../components/Header";
 import DistrictStats from "../components/DistrictStat";
 import CountryStat from "../components/CountryStat";
+import DailyStat from "../components/DailyStat";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
@@ -32,9 +33,9 @@ const Stats = () => {
           <DistrictStats />
         </div>
 
-        {/* <div className="div_countryStat">
-          <CountryStat />
-        </div> */}
+        <div className="div_dailyStat">
+          <DailyStat />
+        </div>
 
       </div>
     </div>
