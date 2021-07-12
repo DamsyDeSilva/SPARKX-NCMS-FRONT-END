@@ -1,13 +1,14 @@
 import { makeStyles } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useStyles = makeStyles(() => ({
-  patientRegForm: {
+  loginForm: {
     maxWidth: "300px",
     margin: "10",
     textAlign: "center",
   },
-  regLabel: {
+  formLabel: {
     textAlign: "left",
     display: "block",
   },
@@ -41,35 +42,80 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function UserLogin() {
-  const [Username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setpassword] = useState("");
-  const [role, setRole] = useState("Male");
+  const [role, setRole] = useState("Doctor");
+  
+	const [status, setStatus] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const { patientRegForm, regLabel, formTitle, forminput, formButton } =
+  const { loginForm, formLabel, formTitle, forminput, formButton } =
     useStyles();
 
+  // login submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    const regData = {Username, password, role};
-    console.log(regData);
+    const loginData = { username, password, role };
+    // console.log(loginData);
+
+    const reqBody = JSON.stringify(loginData);
+    axios.post("http://localhost:8080/ncms/login", reqBody).then((res) => {
+      // console.log(res);
+      console.log(res.data);
+      setUsername(res.data.username);
+      setRole(res.data.role);
+      setStatus(res.data.status);
+
+			localStorage.setItem("token", res.data.token);
+      localStorage.setItem("username", res.data.username);
+      localStorage.setItem("role", res.data.role);
+    });
   };
 
+	// use effect for satus
+  useEffect(() => {
+    if (status === "SUCCESS_LOGIN") {
+      setLoggedIn(true);
+			console.log("satus success useeffect");
+    } else if (status === "FAILED_LOGIN") {
+      setLoggedIn(false);
+			console.log("satus failed useeffect");
+      localStorage.setItem("LoggedIn", false);
+    }
+  }, [status]);
+
+	useEffect(() => {
+    if (loggedIn) {
+      // --> render next page
+			localStorage.setItem("LoggedIn", true);
+			console.log("loggedIn updated");
+    } else {
+      // setLoggedIn(false);
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("role");
+			localStorage.setItem("LoggedIn", false);
+			console.log("local storage removed");
+    }
+
+  }, [loggedIn]);
+
   return (
-    <div className={patientRegForm}>
+    <div className={loginForm}>
       <h2 className={formTitle}>User Login</h2>
 
       <form onSubmit={handleSubmit}>
-        <label className={regLabel}>Username : </label>
+        <label className={formLabel}>Username : </label>
         <input
           className={forminput}
           required
           placeholder="Username"
           type="text"
-          value={Username}
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        <label className={regLabel}>Password : </label>
+        <label className={formLabel}>Password : </label>
         <input
           className={forminput}
           required
@@ -79,11 +125,16 @@ export default function UserLogin() {
           onChange={(e) => setpassword(e.target.value)}
         />
 
-        <label className={regLabel}>Role : </label>
-        <select className={forminput} required value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="Doctor">Doctor</option>
-            <option value="MoH">MoH</option>
-            <option value="Director">Director</option>
+        <label className={formLabel}>Role : </label>
+        <select
+          className={forminput}
+          required
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="Doctor">Doctor</option>
+          <option value="MoH">MoH</option>
+          <option value="Director">Director</option>
         </select>
 
         <button className={formButton}> Login </button>
