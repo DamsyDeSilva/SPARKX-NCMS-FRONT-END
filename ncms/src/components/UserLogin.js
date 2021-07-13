@@ -132,9 +132,8 @@ export default function UserLogin() {
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
-          <option value="Doctor">Doctor</option>
-          <option value="MoH">MoH</option>
-          <option value="Director">Director</option>
+          <option value="DOCTOR">DOCTOR</option>
+          <option value="MOH">MOH</option>
         </select>
 
         <button className={formButton}> Login </button>
