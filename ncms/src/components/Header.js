@@ -33,11 +33,11 @@ const headersDoctorLoggedIn = [
     href: "/stats",
   },
   {
-    label: "PatientAdmissions",
-    href: "/patientAdmissions",
+    label: "Patient Admissions",
+    href: "/patientadmission",
   },
   {
-    label: "PatientDischarge",
+    label: "Patient Discharge",
     href: "/patientdischarge",
   },
   {

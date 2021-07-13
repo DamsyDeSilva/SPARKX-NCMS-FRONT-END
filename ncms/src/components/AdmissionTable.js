@@ -18,12 +18,12 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 650,
+    minWidth: 1100,
   },
   tableContainer: {
     borderRadius: 15,
     margin: "10px 10px",
-    maxWidth: 950,
+    maxWidth: 1500,
   },
   tableHeaderCell: {
     fontWeight: "bold",
@@ -52,10 +52,34 @@ const useStyles = makeStyles((theme) => ({
     color: "#f1356d",
     marginBottom: "30px",
   },
+
+  forminput: {
+    width: "100px",
+    height: "25px",
+    paddingTop: "3px",
+    marginTop: "5px",
+    marginBottom: "10px",
+    border: "1px",
+    borderStyle: "solid",
+    borderColor: "#ddd",
+    boxSizing: "border-box",
+    borderRadius: "8px",
+    display: "block",
+    color: "#818a84",
+  },
+  formButton: {
+    background: "#f1356d",
+    color: "#fff",
+    border: "0",
+    padding: "8px",
+    borderRadius: "8px",
+  },
 }));
 
 const AdmissionTable = () => {
   const [patientAdmissionData, setPatientAdmissionData] = useState([]);
+  // const [doctorName, setDoctorName] = useState();
+  const [severityLevel, setSeverityLevel] = useState();
 
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -68,6 +92,23 @@ const AdmissionTable = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  // patient admit post
+  const handleAdmit = (e, patientid) => {
+    e.preventDefault();
+    console.log(patientid);
+
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
+
+    const url = `http://localhost:8080/ncms/doctor/admits?username=${localStorage.getItem("username")}&patientId=${patientid}&severityLevel=${severityLevel}`;
+    console.log(url, config);
+
+    axios.post(url).then((res) => {
+      console.log(res.data);
+    });
   };
 
   useEffect(() => {
@@ -110,6 +151,9 @@ const AdmissionTable = () => {
               <TableCell className={classes.tableHeaderCell}>
                 Bed Number
               </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Severity level
+              </TableCell>
             </TableRow>
           </TableHead>
 
@@ -117,6 +161,7 @@ const AdmissionTable = () => {
             {patientAdmissionData
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
+                // setPatientID(row.id),
                 <TableRow key={row.id}>
                   <TableCell>
                     <Grid container>
@@ -132,7 +177,9 @@ const AdmissionTable = () => {
                         <Typography className={classes.name}>
                           {row.firstName} {row.lastName}
                         </Typography>
-                        <Typography color="textSecondary" variant="body2">{row.id}</Typography>
+                        <Typography color="textSecondary" variant="body2">
+                          {row.id}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </TableCell>
@@ -152,6 +199,20 @@ const AdmissionTable = () => {
                   <TableCell>{row.gender}</TableCell>
                   <TableCell>{row.hospitalId}</TableCell>
                   <TableCell>{row.bedNo}</TableCell>
+
+                  <TableCell>
+                      <select
+                        className={classes.forminput}
+                        required
+                        value={severityLevel}
+                        onChange={(e) => setSeverityLevel(e.target.value)}
+                      >
+                        <option value="Low">Low</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Critical">Critical</option>
+                      </select>
+                      <button className={classes.formButton} onClick={(e) => handleAdmit(e, row.id)}> Admit </button>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
