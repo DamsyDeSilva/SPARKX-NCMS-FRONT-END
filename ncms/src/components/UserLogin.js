@@ -47,7 +47,7 @@ export default function UserLogin() {
   const [role, setRole] = useState("Doctor");
   
 	const [status, setStatus] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState();
 
   const { loginForm, formLabel, formTitle, forminput, formButton } =
     useStyles();
@@ -75,12 +75,12 @@ export default function UserLogin() {
 	// use effect for satus
   useEffect(() => {
     if (status === "SUCCESS_LOGIN") {
-      setLoggedIn(true);
 			console.log("satus success useeffect");
+      setLoggedIn(true);
     } else if (status === "FAILED_LOGIN") {
-      setLoggedIn(false);
 			console.log("satus failed useeffect");
       localStorage.setItem("LoggedIn", false);
+      setLoggedIn(false);
     }
   }, [status]);
 
@@ -100,44 +100,53 @@ export default function UserLogin() {
 
   }, [loggedIn]);
 
-  return (
-    <div className={loginForm}>
-      <h2 className={formTitle}>User Login</h2>
-
-      <form onSubmit={handleSubmit}>
-        <label className={formLabel}>Username : </label>
-        <input
-          className={forminput}
-          required
-          placeholder="Username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-
-        <label className={formLabel}>Password : </label>
-        <input
-          className={forminput}
-          required
-          placeholder="password"
-          type="password"
-          value={password}
-          onChange={(e) => setpassword(e.target.value)}
-        />
-
-        <label className={formLabel}>Role : </label>
-        <select
-          className={forminput}
-          required
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="DOCTOR">DOCTOR</option>
-          <option value="MOH">MOH</option>
-        </select>
-
-        <button className={formButton}> Login </button>
-      </form>
-    </div>
-  );
+  if(loggedIn){
+    return (
+      <div className={loginForm}>
+        <h2 className={formTitle}>You Have Logged in as a {localStorage.getItem("role")}</h2>
+      </div>
+    );
+  }else{
+    return (
+      <div className={loginForm}>
+        <h2 className={formTitle}>User Login</h2>
+  
+        <form onSubmit={handleSubmit}>
+          <label className={formLabel}>Username : </label>
+          <input
+            className={forminput}
+            required
+            placeholder="Username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+  
+          <label className={formLabel}>Password : </label>
+          <input
+            className={forminput}
+            required
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+          />
+  
+          <label className={formLabel}>Role : </label>
+          <select
+            className={forminput}
+            required
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="DOCTOR">DOCTOR</option>
+            <option value="MOH">MOH</option>
+          </select>
+  
+          <button className={formButton}> Login </button>
+        </form>
+      </div>
+    );
+  }
+  
 }
