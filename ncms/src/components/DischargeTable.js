@@ -76,10 +76,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AdmissionTable = () => {
-  const [patientAdmissionData, setPatientAdmissionData] = useState([]);
-  // const [doctorName, setDoctorName] = useState();
-  const [severityLevel, setSeverityLevel] = useState();
+const DischargeTable = () => {
+  const [patientDischargeData, setPatientDischargeData] = useState([]);
 
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -94,8 +92,8 @@ const AdmissionTable = () => {
     setPage(0);
   };
 
-  // patient admit post
-  const handleAdmit = (e, patientid) => {
+  // patient discharge post
+  const handleDischarge = (e, patientid) => {
     e.preventDefault();
     console.log(patientid);
 
@@ -103,7 +101,7 @@ const AdmissionTable = () => {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     };
 
-    const url = `http://localhost:8080/ncms/doctor/admits?username=${localStorage.getItem("username")}&patientId=${patientid}&severityLevel=${severityLevel}`;
+    const url = `http://localhost:8080/ncms/doctor/discharge?username=${localStorage.getItem("username")}&patientId=${patientid}`;
     console.log(url, config);
 
     axios.post(url).then((res) => {
@@ -111,17 +109,20 @@ const AdmissionTable = () => {
     });
   };
 
+  // get patient discharge data
   useEffect(() => {
+
+    // set token to headers
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     };
 
     axios
-      .get("http://localhost:8080/ncms/doctor/admits", config)
+      .get("http://localhost:8080/ncms/doctor/discharge", config)
       .then((response) => {
         // hospitalData = response.data;
         console.log(response.data);
-        setPatientAdmissionData(response.data);
+        setPatientDischargeData(response.data);
       })
       // console.log(hospitalData);
       .catch((err) => {
@@ -141,9 +142,6 @@ const AdmissionTable = () => {
               <TableCell className={classes.tableHeaderCell}>
                 District
               </TableCell>
-              <TableCell className={classes.tableHeaderCell}>
-                Location
-              </TableCell>
               <TableCell className={classes.tableHeaderCell}>Gender</TableCell>
               <TableCell className={classes.tableHeaderCell}>
                 HospitalID
@@ -154,11 +152,17 @@ const AdmissionTable = () => {
               <TableCell className={classes.tableHeaderCell}>
                 Severity level
               </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Admit Date
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Discharge
+              </TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {patientAdmissionData
+            {patientDischargeData
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 // setPatientID(row.id),
@@ -190,28 +194,13 @@ const AdmissionTable = () => {
                     </Typography>
                   </TableCell>
 
-                  <TableCell>
-                    {row.locationX}
-                    {" , "}
-                    {row.locationY}
-                  </TableCell>
-
                   <TableCell>{row.gender}</TableCell>
                   <TableCell>{row.hospitalId}</TableCell>
                   <TableCell>{row.bedNo}</TableCell>
-
+                  <TableCell>{row.severityLevel}</TableCell>
+                  <TableCell>{row.admitDate}</TableCell>
                   <TableCell>
-                      <select
-                        className={classes.forminput}
-                        required
-                        value={severityLevel}
-                        onChange={(e) => setSeverityLevel(e.target.value)}
-                      >
-                        <option value="LOW">LOW</option>
-                        <option value="MODERATE">MODERATE</option>
-                        <option value="CRITICAL">CRITICAL</option>
-                      </select>
-                      <button className={classes.formButton} onClick={(e) => handleAdmit(e, row.id)}> Admit </button>
+                      <button className={classes.formButton} onClick={(e) => handleDischarge(e, row.id)}> Discharge </button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -220,7 +209,7 @@ const AdmissionTable = () => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 15]}
               component="div"
-              count={patientAdmissionData.length}
+              count={patientDischargeData.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onChangePage={handleChangePage}
@@ -232,4 +221,4 @@ const AdmissionTable = () => {
     </div>
   );
 };
-export default AdmissionTable;
+export default DischargeTable;
