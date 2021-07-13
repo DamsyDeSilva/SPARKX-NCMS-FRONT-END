@@ -52,3 +52,19 @@
   margin-left: 1em;
   margin-right: 5em;
 }
+
+.div_moh_middle_form{
+
+  padding-bottom: 5em;
+  padding-left: 2em;
+}
+
+.div_moh_left_form{
+  padding-bottom: 5em;
+  padding-right: 3em;
+}
+
+.div_queue_table{
+  padding-bottom: 5em;
+  padding-left: 3em;
+}
