@@ -60,6 +60,10 @@ const headersMOHLoggedIn = [
     href: "/stats",
   },
   {
+    label: "Hospitals",
+    href: "/hospitals",
+  },
+  {
     label: "Moh Dashboard",
     href: "/mohdashboard",
   },

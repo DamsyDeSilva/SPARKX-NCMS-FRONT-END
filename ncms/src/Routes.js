@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Stats from "./pages/Stats";
 import Discharge from "./pages/Discharge";
-
+import MoHDashboard from "./pages/MoHDashboard";
 
 const Routes = () => {
   return (
@@ -17,6 +17,7 @@ const Routes = () => {
         <Route path="/hospitals" exact component={Hospitals} />
         <Route path="/patientadmission" exact component={PatientAdmission} />
         <Route path="/patientdischarge" exact component={Discharge} />
+        <Route path="/mohdashboard" exact component={MoHDashboard} />
         <Route path="/stats" exact component={Stats} />
         
         <Route component={NotFound} />
